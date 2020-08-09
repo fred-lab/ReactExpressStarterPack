@@ -1,12 +1,12 @@
-import React from "react";
-import ReactDOM from "react-dom";
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-import "../scss/main.scss";
+import '../scss/main.scss';
 
-import Welcome from "./components/Welcome.jsx";
+import Welcome from './components/Welcome';
 
 // eslint-disable-next-line no-console
-console.log("init !!");
+console.log('init !!');
 
 /** App */
-ReactDOM.render(<Welcome />, document.getElementById("app"));
+ReactDOM.render(<Welcome />, document.getElementById('app'));

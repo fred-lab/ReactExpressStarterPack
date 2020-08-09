@@ -1,17 +1,20 @@
-const path = require("path");
+const path = require('path');
 
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const ManifestPlugin = require("webpack-manifest-plugin");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const ManifestPlugin = require('webpack-manifest-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
-const outputPath = path.resolve(__dirname, "dist");
-const sourcePath = path.resolve(__dirname, "src");
+const outputPath = path.resolve(__dirname, 'dist');
+const sourcePath = path.resolve(__dirname, 'src');
 
 const config = {
-  mode: "development",
+  mode: 'development',
   entry: {
-    app: [`${sourcePath}/js/main.jsx`, `${sourcePath}/scss/main.scss`],
+    app: [
+      `${sourcePath}/js/main.jsx`,
+      `${sourcePath}/scss/main.scss`,
+    ],
   },
   optimization: {
     splitChunks: {
@@ -19,27 +22,28 @@ const config = {
         vendors: {
           test: /[\\/]node_modules[\\/]/,
           priority: 10,
-          chunks: "all",
-          name: "vendor",
+          chunks: 'all',
+          name: 'vendor',
         },
       },
     },
   },
   output: {
-    filename: "[name].[hash].js",
+    filename: '[name].[hash].js',
     path: outputPath,
-    // publicPath n'a l'air de servir que pour le server de webpack
-    publicPath: "/",
+    publicPath: '/',
   },
   resolve: {
+    extensions: ['.js', '.jsx'],
     alias: {
-      Src: path.resolve(__dirname, "/src/js"),
+      Src: path.resolve(__dirname, '/src/js/'),
+      Components: path.resolve(__dirname, '/src/js/components/'),
     },
   },
-  devtool: "inline-source-map",
+  devtool: 'inline-source-map',
   devServer: {
     contentBase: outputPath,
-    publicPath: "/assets/",
+    publicPath: '/assets/',
     port: 8080,
     writeToDisk: true,
   },
@@ -49,10 +53,10 @@ const config = {
         /* Check the code with Eslint and after use Babel to compile js to es5 */
         test: /\.jsx?$/,
         include: [sourcePath],
-        exclude: [path.resolve("./node_modules"), outputPath],
-        enforce: "pre",
+        exclude: [path.resolve('./node_modules'), outputPath],
+        enforce: 'pre',
         use: [
-          "babel-loader",
+          'babel-loader',
           // 'eslint-loader'
         ],
       },
@@ -61,18 +65,18 @@ const config = {
         test: /\.scss$/,
         use: [
           MiniCssExtractPlugin.loader, // Extract CSS to an external file
-          "css-loader", // Allow to import CSS
+          'css-loader', // Allow to import CSS
           {
             /* Add auto prefix to css */
-            loader: "postcss-loader",
+            loader: 'postcss-loader',
             options: {
               plugins: [
                 // eslint-disable-next-line global-require
-                require("autoprefixer")({}),
+                require('autoprefixer')({}),
                 // eslint-disable-next-line global-require
-                require("cssnano")({
+                require('cssnano')({
                   preset: [
-                    "default",
+                    'default',
                     {
                       discardComments: {
                         removeAll: true,
@@ -85,7 +89,7 @@ const config = {
           },
           {
             /* Convert sass to css */
-            loader: "sass-loader",
+            loader: 'sass-loader',
             options: {
               sassOptions: {
                 includePaths: [`${sourcePath}/scss`],
@@ -100,8 +104,8 @@ const config = {
     new CleanWebpackPlugin(),
     /* Create /dist/index.html */
     new HtmlWebpackPlugin({
-      title: "React with Express start pack",
-      template: "index.html",
+      title: 'React with Express start pack',
+      template: 'index.html',
     }),
     /* Create a manifest.json */
     new ManifestPlugin(),
@@ -109,7 +113,7 @@ const config = {
       // Options similar to the same options in webpackOptions.output
       // both options are optional
       // filename: '[name].[contenthash].css',
-      filename: "[name].[hash].css",
+      filename: '[name].[hash].css',
     }),
   ],
 };
