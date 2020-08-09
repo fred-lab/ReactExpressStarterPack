@@ -3,6 +3,7 @@ const path = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const ManifestPlugin = require("webpack-manifest-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
 const outputPath = path.resolve(__dirname, "dist");
 const sourcePath = path.resolve(__dirname, "src");
@@ -25,10 +26,10 @@ const config = {
     },
   },
   output: {
-    filename: "[name].[contenthash].js",
+    filename: "[name].[hash].js",
     path: outputPath,
     // publicPath n'a l'air de servir que pour le server de webpack
-    publicPath: "/assets/",
+    publicPath: "/",
   },
   resolve: {
     alias: {
@@ -40,6 +41,7 @@ const config = {
     contentBase: outputPath,
     publicPath: "/assets/",
     port: 8080,
+    writeToDisk: true,
   },
   module: {
     rules: [
@@ -95,6 +97,7 @@ const config = {
     ],
   },
   plugins: [
+    new CleanWebpackPlugin(),
     /* Create /dist/index.html */
     new HtmlWebpackPlugin({
       title: "React with Express start pack",
@@ -106,7 +109,7 @@ const config = {
       // Options similar to the same options in webpackOptions.output
       // both options are optional
       // filename: '[name].[contenthash].css',
-      filename: "[name].[contenthash].css",
+      filename: "[name].[hash].css",
     }),
   ],
 };
