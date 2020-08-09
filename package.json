@@ -1,0 +1,16 @@
+{
+  "name": "react-express-starter",
+  "version": "1.0.0",
+  "description": "A starter pack for React with Express and NodeJS",
+  "main": "index.js",
+  "scripts": {
+    "prod": "npm run start --prefix server",
+    "dev": "npm run dev --prefix server"
+  },
+  "author": "Fred Gauthier",
+  "license": "MIT",
+  "devDependencies": {
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12"
+  }
+}
